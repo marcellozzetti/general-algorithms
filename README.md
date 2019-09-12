@@ -1,2 +1,2 @@
 # general-algorithms
-Activities related from master’s degree in computer science
+Activities related of master’s degree in computer science
