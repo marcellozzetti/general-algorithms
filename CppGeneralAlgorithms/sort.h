@@ -1,16 +1,13 @@
 /* 
- * File:   main.c
+ * File:   sort.h
  * Author: marcello.ozzetti
  *
  * Created on September 4, 2019, 2:34 PM
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-
 /*
  * Definitions
- */
+ */ 
 #define MAX_LENGH 10
 
 typedef int TKey;
@@ -19,8 +16,8 @@ typedef struct{
 } TItem;
 
 /*
- * Main Methods
- */
+ * Methods
+ */ 
 void sort(TItem *A){
     int i, j;
     TItem aux;
@@ -61,7 +58,7 @@ void add(TItem *A, int value){
     
     for(i = 0; i < MAX_LENGH; i++){
         
-        if(A[i].key ==  '\0'){
+        if(A[i].key == '\0'){
             break;
         }
     }
@@ -69,10 +66,11 @@ void add(TItem *A, int value){
         printf("Full!");
     } else {
          A[i].key = value;
+         A[i+1].key = '\0';
     }
 }
 
-void delete(TItem *A, int value){
+void del(TItem *A, int value){
     int i;
     
     for(i = 0; i < MAX_LENGH; i++){
@@ -110,7 +108,7 @@ void action(TItem *TSort, int opt){
     
     switch(opt){
         case 1:
-            printf(" Include a value: ");
+            printf(" Insert a value: ");
             scanf("%d", &value);
             add(TSort, value);
             break;
@@ -122,7 +120,7 @@ void action(TItem *TSort, int opt){
         case 3:
             printf(" Remove a value: ");
             scanf("%d", &value);
-            delete(TSort, value);
+            del(TSort, value);
             break;
 
         case 4:
@@ -135,35 +133,3 @@ void action(TItem *TSort, int opt){
          
     }
 }
-
-/*
- * Main
- */
-int main(int argc, char** argv) {
-    
-    TItem *TSort = (TItem *) malloc(MAX_LENGH);
-    
-    //Inicializa
-    start(TSort);
-    
-    if(!TSort){
-        printf(" Error on creating the stack! \n");
-        return (EXIT_FAILURE);
-    } else{
-        
-        int opt = menu();
-        
-        while(opt){
-            
-           action(TSort, opt);
-           opt = menu();
-        }
-    }
-    
-    printf(" *** END *** ");
-    
-    free(TSort);
-    
-    return (EXIT_SUCCESS);
-}
-
