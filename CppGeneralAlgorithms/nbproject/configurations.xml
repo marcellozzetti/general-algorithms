@@ -12,7 +12,6 @@
       <itemPath>arrayByPointer.h</itemPath>
       <itemPath>queueByArrangement.h</itemPath>
       <itemPath>queueByPointer.h</itemPath>
-      <itemPath>sort.h</itemPath>
       <itemPath>stackByArrangement.h</itemPath>
       <itemPath>stackByPointer.h</itemPath>
     </logicalFolder>
@@ -53,8 +52,6 @@
       </item>
       <item path="queueByPointer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="sort.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="stackByArrangement.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="stackByPointer.h" ex="false" tool="3" flavor2="0">
@@ -89,8 +86,6 @@
       <item path="queueByArrangement.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="queueByPointer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="sort.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="stackByArrangement.h" ex="false" tool="3" flavor2="0">
       </item>
