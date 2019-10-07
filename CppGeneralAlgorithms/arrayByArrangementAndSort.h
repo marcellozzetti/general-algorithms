@@ -146,10 +146,8 @@ void bubbleSort(TArray *array){
     
     for( i = array->first - 1; i < array->last - 1; i++){
         
-        printf("A: %d ", i);
         for(j = 1; j < array->last - 1; j++){
             
-            printf("B: %d ", j);
             if(array->item[j].key < array->item[j - 1].key){
                 
                 aux = array->item[j];
@@ -262,43 +260,45 @@ void mergeSortInterc(TArray *array, int ini, int mid, int end){
     
     for(i = ini; i <= mid; i++){
         newArray->item[i] = array->item[i];
-        printf("vetor B1: %d - %d \n", newArray->item[i].key, i);
+        printf("vetor B1: %d %d \n", newArray->item[i].key, i);
         
     }
     
     for(j = mid + 1; j <= end; j++){
-        newArray->item[end  + mid + 1 - ini - j] = array->item[j];
-        printf("vetor B2: %d - %d \n", newArray->item[end + mid + 1 - ini - j].key, j);
+        newArray->item[end + mid + 1 - j - ini] = array->item[j];
+        printf("vetor B2: %d %d \n", newArray->item[end + mid + 1 - j - ini].key, j);
         
     }
     
-    printArray(newArray);
     i = ini;
     j = end;
     
-    for(k = ini; k <= end - 1; k++){
+    for(k = ini; k <= end; k++)
        
-        if(newArray->item[i - ini].key < newArray->item[j - ini].key){
+        if(newArray->item[i - ini].key <= newArray->item[j - ini].key){
             array->item[k] = newArray->item[i - ini];
+            printf("A: %d %d %d %d %d %d %d %d \n", newArray->item[i - ini].key, newArray->item[j - ini].key, array->item[k].key, i, j, k, ini, end);
             i++;
             
         } else {
             array->item[k] = newArray->item[j - ini];
-            j++;
+            printf("B: %d %d %d %d %d %d %d %d \n", newArray->item[i - ini].key, newArray->item[j - ini].key, array->item[k].key, i, j, k, ini, end);
+            j--;
             
         }
-    }
+        //printArray(array);
+    
     
     free(newArray);
 }
 
 void mergeSortOrder(TArray *array, int ini, int end){
     
+    int mid;
+    
     if( ini < end ){
         
-        int mid = (ini + end) / 2;
-        
-        printf("Divisao: %d %d %d \n", ini, mid, end);
+        mid = (ini + end) / 2;
         
         mergeSortOrder(array, ini, mid);
         mergeSortOrder(array, mid+1, end);
