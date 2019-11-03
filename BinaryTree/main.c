@@ -14,11 +14,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "binaryTree.h"
+
+#define MAX_LENGTH 10
+
 /*
  * 
  */
 int main(int argc, char** argv) {
 
+    //To be chanced in accordance with option included above: TArray, TStack or TQueue
+    TTree *Item = (TTree *) malloc(MAX_LENGTH * sizeof(TTree));
+    
+    start(Item);
+    
+    if(!Item){
+        printf(" Error on creating the stack! \n");
+        return (EXIT_FAILURE);
+    } else{
+        
+        int opt = menu();
+        
+        while(opt){
+            
+           action(Item, opt);
+           opt = menu();
+        }
+    }
+    
+    printf(" *** END *** ");
+    
+    free(Item);
+    
     return (EXIT_SUCCESS);
 }
 
