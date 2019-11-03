@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-MacOSX
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-MacOSX
-CND_ARTIFACT_NAME_Debug=cppgeneralalgorithms
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/cppgeneralalgorithms
+CND_ARTIFACT_NAME_Debug=binarytree
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/binarytree
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-MacOSX/package
-CND_PACKAGE_NAME_Debug=cppgeneralalgorithms.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-MacOSX/package/cppgeneralalgorithms.tar
+CND_PACKAGE_NAME_Debug=binarytree.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-MacOSX/package/binarytree.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-MacOSX
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-MacOSX
-CND_ARTIFACT_NAME_Release=cppgeneralalgorithms
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/cppgeneralalgorithms
+CND_ARTIFACT_NAME_Release=binarytree
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/binarytree
 CND_PACKAGE_DIR_Release=dist/Release/GNU-MacOSX/package
-CND_PACKAGE_NAME_Release=cppgeneralalgorithms.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-MacOSX/package/cppgeneralalgorithms.tar
+CND_PACKAGE_NAME_Release=binarytree.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-MacOSX/package/binarytree.tar
 #
 # include compiler specific variables
 #

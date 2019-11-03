@@ -1,32 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="94">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
-                   displayName="Header Files"
+                   displayName="Arquivos de Cabeçalho"
                    projectFiles="true">
-    </logicalFolder>
-    <logicalFolder name="ResourceFiles"
-                   displayName="Resource Files"
-                   projectFiles="true">
-      <itemPath>arrayByArrangementAndSort.h</itemPath>
-      <itemPath>arrayByPointer.h</itemPath>
-      <itemPath>queueByArrangement.h</itemPath>
-      <itemPath>queueByPointer.h</itemPath>
-      <itemPath>stackByArrangement.h</itemPath>
-      <itemPath>stackByPointer.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
-                   displayName="Source Files"
+                   displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
       <itemPath>main.c</itemPath>
     </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Arquivos de Recurso"
+                   projectFiles="true">
+    </logicalFolder>
     <logicalFolder name="TestFiles"
-                   displayName="Test Files"
+                   displayName="Arquivos de Teste"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
+                   displayName="Arquivos Importantes"
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
@@ -42,19 +36,7 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="arrayByArrangementAndSort.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="arrayByPointer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="queueByArrangement.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="queueByPointer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="stackByArrangement.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="stackByPointer.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -77,19 +59,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="arrayByArrangementAndSort.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="arrayByPointer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="queueByArrangement.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="queueByPointer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="stackByArrangement.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="stackByPointer.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
