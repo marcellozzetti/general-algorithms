@@ -8,13 +8,15 @@
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 
+#define MAX_TAM 10
+
 typedef struct TNode{
-    char info;
+    int info;
     struct TNode *left, *right;
 } TNode;
 
 typedef struct{
-    TNode * root;
+    TNode *root;
 }TTree;
 
 void start(TTree *tree){
@@ -22,40 +24,54 @@ void start(TTree *tree){
     
 }
 
-void createNode(TNode *nodeLeft, TNode *nodeRight, char info){
-     TNode *node = (TNode *) malloc(sizeof(TNode));
+void createNode(TNode *node, int info){
+     TNode *nodeNew = (TNode *) malloc(sizeof(TNode));
      
-     node->info = info;
-     node->left = nodeLeft;
-     node->right = nodeRight;
+     if(node == NULL){
+         nodeNew->info = info;
+         nodeNew->left = NULL;
+         nodeNew->right = NULL;
+         
+         node = nodeNew;
+         printf(" Criou novo node com valor %d \n ", node->info);
+     } else {
+              
+        if(node->info > info){
+            printf(" Chamou esquerda \n ");
+            createNode(node->left, info);
+        } else {
+            printf(" Chamou direita \n");
+           createNode(node->right, info); 
+        }
+     }
 }
 
-void printTreePreOrder(TTree *tree){
-    if(tree != NULL){
-        printf(" Node info: %c \n ", tree->root->info);
-        printTreePreOrder(tree->root->left);
-        printTreePreOrder(tree->root->right);
+void printTreePreOrder(TNode *node){
+    if(node != NULL){
+        printf(" Node info: %d \n ", node->info);
+        printTreePreOrder(node->left);
+        printTreePreOrder(node->right);
     }
 }
 
-void printTreeInOrder(TTree *tree){
-    if(tree != NULL){
-        printTreePreOrder(tree->root->left);
-        printf(" Node info: %c \n ", tree->root->info);
-        printTreePreOrder(tree->root->right);
+void printTreeInOrder(TNode *node){
+    if(node != NULL){ 
+        printTreeInOrder(node->left);
+        printf(" Node info: %d \n ", node->info);
+        printTreeInOrder(node->right);
     }
 }
 
-void printTreePostOrder(TTree *tree){
-    if(tree != NULL){
-        printTreePreOrder(tree->root->left);
-        printTreePreOrder(tree->root->right);
-        printf(" Node info: %c \n ", tree->root->info);
+void printTreePostOrder(TNode *node){
+    if(node != NULL){
+        printTreePostOrder(node->left);
+        printTreePostOrder(node->right);
+        printf(" Node info: %d \n ", node->info);
     }
 }
 
-void printTreeWidth(TTree *tree){
-    if(tree != NULL){
+void printTreeWidth(TNode *node){
+    if(node != NULL){
         //Usar uma fila para pegar os nos e colocar na ordem de impressao
     }
 }
@@ -79,18 +95,27 @@ int menu(void){
 
 }
 
+void createDefaultTree(TNode *node){
+    
+    for(int i = 0; i < MAX_TAM; i++){
+        
+        int random = (rand() % (20 - 1 + 1)) + 1; 
+        
+        printf("\n Generated value: %d \n", random);
+        
+        createNode(node, random);
+    }
+}
+
 void action(TTree *tree, int opt){
     
-    char infoLeft;
-    char infoRight;
+    int value;
     
     switch(opt){
         case 1:
-            printf(" Insert a value in the left node: ");
-            scanf("%d", &infoLeft);
-            printf(" Insert a value in the right node: ");
-            scanf("%d", &infoRight);
-            //createNode(tree->root->left, tree->root->right, infoLeft, infoRight);
+            printf(" Insert a value: ");
+            scanf("%d", &value);
+            createNode(tree->root, value);
             break;
           
         case 2:
@@ -109,9 +134,8 @@ void action(TTree *tree, int opt){
             printTreeWidth(tree);
             break;
             
-            
         case 10:
-            printTreeWidth(tree);
+            createDefaultTree(tree->root);
             break;
             
         default:
