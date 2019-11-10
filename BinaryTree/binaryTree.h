@@ -61,6 +61,8 @@ int parent(TNode *node, int info1, int info2){
 
 int checkComplete(TNode *node){
     
+    //Contar quantos nos
+    // Verificar se satisfaz a formla 
     return node == NULL ? 0 : (checkComplete(node->left) + checkComplete(node->right) + 1);
 }
 
