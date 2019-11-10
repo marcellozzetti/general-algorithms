@@ -8,7 +8,9 @@
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 
-#define MAX_TAM 10
+#define MAX_TAM 5
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 typedef struct TNode{
     int info;
@@ -21,36 +23,91 @@ typedef struct{
 
 void start(TTree *tree){
     tree->root = NULL;
-    
 }
 
-void createNode(TNode *node, int info){
-     TNode *nodeNew = (TNode *) malloc(sizeof(TNode));
+int isEmpty(TTree *tree){
+    return tree->root == NULL;
+}
+
+int heightTree(TNode *node){
+    
+    if(node == NULL){
+        return -1;
+    }
+    
+    return MAX(1 + heightTree(node->left), 1 + heightTree(node->right));
+}
+
+int depthTree(TNode *node, int info){  
+    if(node == NULL ){
+        return -1;
+    }
+    
+    if(node->info == info){
+        return 0;
+    } else {
+        return MAX(1 + depthTree(node->left, info), 1 + depthTree(node->right, info));
+    }
+}
+
+int parent(TNode *node, int info1, int info2){
+    
+    if(node == NULL){
+        return -1;
+    }
+    
+    return (depthTree(node, info1) - depthTree(node, info2));
+}
+
+int checkComplete(TNode *node){
+    
+    return node == NULL ? 0 : (checkComplete(node->left) + checkComplete(node->right) + 1);
+}
+
+int checkBinary(TNode *node) {
+    return (!node->left && !node->right)
+            || (node->left && node->right && checkBinary(node->left) && checkBinary(node->right));
+}
+
+void createRoot(TTree *tree, int info){
+    TNode *nodeNew = (TNode *) malloc(sizeof(TNode));
+        
+    nodeNew->info = info;
+    nodeNew->left = NULL;
+    nodeNew->right = NULL;
+    tree->root = nodeNew;
+    
+    printf("\n Generated root value: %d \n", tree->root->info);
+}
+
+void insertNode(TNode** node, int info){
      
-     if(node == NULL){
-         nodeNew->info = info;
-         nodeNew->left = NULL;
-         nodeNew->right = NULL;
+     if(*node == NULL){
          
-         node = nodeNew;
-         printf(" Criou novo node com valor %d \n ", node->info);
-     } else {
-              
-        if(node->info > info){
-            printf(" Chamou esquerda \n ");
-            createNode(node->left, info);
+         *node = (TNode *) malloc(sizeof(TNode));
+         
+         (*node)->info = info;  
+         (*node)->left = NULL;
+         (*node)->right = NULL;
+         
+     } else {          
+        if(info < (*node)->info){
+            printf(" Left node %d \n ", (*node)->info);
+            insertNode(&(*node)->left, info);
         } else {
-            printf(" Chamou direita \n");
-           createNode(node->right, info); 
+            printf(" Right node %d \n", (*node)->info);
+           insertNode(&(*node)->right, info); 
         }
      }
 }
 
-void printTreePreOrder(TNode *node){
+void printTreePreOrder(TNode *node){  
     if(node != NULL){
-        printf(" Node info: %d \n ", node->info);
+        printf("%d(", node->info);
         printTreePreOrder(node->left);
+        printf(",");
         printTreePreOrder(node->right);
+        printf(")");
     }
 }
 
@@ -70,77 +127,19 @@ void printTreePostOrder(TNode *node){
     }
 }
 
-void printTreeWidth(TNode *node){
-    if(node != NULL){
-        //Usar uma fila para pegar os nos e colocar na ordem de impressao
+void createDefaultTree(TTree *tree){
+    
+    if(isEmpty(tree)){
+        createRoot(tree, (rand() % (50 - 1 + 1)) + 1);
     }
-}
-
-int menu(void){
-    
-    int opt;
-    
-    printf("\n Select an option: \n");
-    printf(" 0. Exit \n");
-    printf(" 1. Insert \n");
-    printf(" 2. Print Pre-Order \n");
-    printf(" 3. Print In-Order \n");
-    printf(" 4. Print Post-Order \n");
-    printf(" 5. Print Width \n");
-    printf(" 10. Pre-defined Tree \n");
-    printf(" Option: ");
-    scanf("%d", &opt);
-    
-    return opt;
-
-}
-
-void createDefaultTree(TNode *node){
     
     for(int i = 0; i < MAX_TAM; i++){
         
-        int random = (rand() % (20 - 1 + 1)) + 1; 
+        int random = (rand() % (50 - 1 + 1)) + 1; 
         
         printf("\n Generated value: %d \n", random);
         
-        createNode(node, random);
-    }
-}
-
-void action(TTree *tree, int opt){
-    
-    int value;
-    
-    switch(opt){
-        case 1:
-            printf(" Insert a value: ");
-            scanf("%d", &value);
-            createNode(tree->root, value);
-            break;
-          
-        case 2:
-            printTreePreOrder(tree);
-            break;
-
-        case 3:
-            printTreeInOrder(tree);
-            break;
-            
-        case 4:
-            printTreePostOrder(tree);
-            break;
-            
-        case 5:
-            printTreeWidth(tree);
-            break;
-            
-        case 10:
-            createDefaultTree(tree->root);
-            break;
-            
-        default:
-            printf(" Wrong %d option! \n\n ", opt);
-            break;         
+        insertNode(&tree->root, random);
     }
 }
 #endif	// BINARYTREE_H
