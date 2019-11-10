@@ -32,7 +32,7 @@ void action(TTree *tree, int opt){
         case 2:
             printf(" Insert a value: ");
             scanf("%d", &value);
-            insertNode(&tree->root, value);
+            insertNodeABB(&tree->root, value);
             break;
           
         case 3:
@@ -46,18 +46,24 @@ void action(TTree *tree, int opt){
         case 5:
             printTreePostOrder(tree->root);
             break;
-            
+        
         case 6:
+            printf(" Insert a node value to be find: ");
+            scanf("%d", &value);
+            searchTreeABB(tree->root, value);
+            break;
+                      
+        case 7:
             printf(" Insert a node value: ");
             scanf("%d", &value);
             printf(" Depth: %d \n", depthTree(tree->root, value));
             break;
             
-        case 7:
+        case 8:
             printf(" Height: %d \n", heightTree(tree->root));
             break;
             
-        case 8:
+        case 9:
             printf(" Insert a node 1 value: ");
             scanf("%d", &value);
             printf(" Insert a node 2 value: ");
@@ -65,12 +71,12 @@ void action(TTree *tree, int opt){
             printf(" Parent: %d \n", parent(tree->root, value, valueAux));
             break;
             
-         case 9:
+         case 10:
             printf(" Is Binary: %d \n", checkBinary(tree->root));
             printf(" Is Complete: %d \n", checkComplete(tree->root));
             break;
         
-        case 10:
+        case 20:
             createDefaultTree(tree);
             break;
             
@@ -91,11 +97,12 @@ int menu(void){
     printf(" 3. Print Pre-Order \n");
     printf(" 4. Print In-Order \n");
     printf(" 5. Print Post-Order \n");
-    printf(" 6. Depth \n");
-    printf(" 7. Height \n");
-    printf(" 8. Parents \n");
-    printf(" 9. Checks \n");
-    printf(" 10. Pre-defined Tree \n");
+    printf(" 6. Search ABB \n");
+    printf(" 7. Depth \n");
+    printf(" 8. Height \n");
+    printf(" 9. Parents \n");
+    printf(" 10. Checks \n");
+    printf(" 20. Pre-defined Tree \n");
     printf(" Option: ");
     scanf("%d", &opt);
     

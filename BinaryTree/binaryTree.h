@@ -59,11 +59,28 @@ int parent(TNode *node, int info1, int info2){
     return (depthTree(node, info1) - depthTree(node, info2));
 }
 
+void searchTreeABB(TNode *node, int info){
+    
+    if(node == NULL){
+        printf("\n Value not found \n");
+        return;
+    }
+    
+    if(node->info == info){
+        printf("\n Value %d found \n", info);
+    } else {
+        if(node->info > info){
+            searchTreeABB(node->left, info);
+        } else {
+            searchTreeABB(node->right, info);
+        }
+    }
+}
+
 int checkComplete(TNode *node){
     
-    //Contar quantos nos
-    // Verificar se satisfaz a formla 
-    return node == NULL ? 0 : (checkComplete(node->left) + checkComplete(node->right) + 1);
+    //TO BE implemented
+    //return node == NULL ? 0 : (checkComplete(node->left) + checkComplete(node->right) + 1);
 }
 
 int checkBinary(TNode *node) {
@@ -82,7 +99,7 @@ void createRoot(TTree *tree, int info){
     printf("\n Generated root value: %d \n", tree->root->info);
 }
 
-void insertNode(TNode** node, int info){
+void insertNodeABB(TNode** node, int info){
      
      if(*node == NULL){
          
@@ -95,10 +112,10 @@ void insertNode(TNode** node, int info){
      } else {          
         if(info < (*node)->info){
             printf(" Left node %d \n ", (*node)->info);
-            insertNode(&(*node)->left, info);
+            insertNodeABB(&(*node)->left, info);
         } else {
             printf(" Right node %d \n", (*node)->info);
-           insertNode(&(*node)->right, info); 
+           insertNodeABB(&(*node)->right, info); 
         }
      }
 }
@@ -141,7 +158,7 @@ void createDefaultTree(TTree *tree){
         
         printf("\n Generated value: %d \n", random);
         
-        insertNode(&tree->root, random);
+        insertNodeABB(&tree->root, random);
     }
 }
 #endif	// BINARYTREE_H
