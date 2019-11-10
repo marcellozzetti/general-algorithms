@@ -52,18 +52,24 @@ void action(TTree *tree, int opt){
             scanf("%d", &value);
             searchTreeABB(tree->root, value);
             break;
-                      
+        
         case 7:
+            printf(" Insert a node value to be removed: ");
+            scanf("%d", &value);
+            removeNodeABB(&tree->root, value);
+            break;
+                        
+        case 8:
             printf(" Insert a node value: ");
             scanf("%d", &value);
             printf(" Depth: %d \n", depthTree(tree->root, value));
             break;
             
-        case 8:
+        case 9:
             printf(" Height: %d \n", heightTree(tree->root));
             break;
             
-        case 9:
+        case 10:
             printf(" Insert a node 1 value: ");
             scanf("%d", &value);
             printf(" Insert a node 2 value: ");
@@ -71,7 +77,7 @@ void action(TTree *tree, int opt){
             printf(" Parent: %d \n", parent(tree->root, value, valueAux));
             break;
             
-         case 10:
+         case 11:
             printf(" Is Binary: %d \n", checkBinary(tree->root));
             printf(" Is Complete: %d \n", checkComplete(tree->root));
             break;
@@ -98,10 +104,11 @@ int menu(void){
     printf(" 4. Print In-Order \n");
     printf(" 5. Print Post-Order \n");
     printf(" 6. Search ABB \n");
-    printf(" 7. Depth \n");
-    printf(" 8. Height \n");
-    printf(" 9. Parents \n");
-    printf(" 10. Checks \n");
+    printf(" 7. Remove ABB \n");
+    printf(" 8. Depth \n");
+    printf(" 9. Height \n");
+    printf(" 10. Parents \n");
+    printf(" 11. Checks \n");
     printf(" 20. Pre-defined Tree \n");
     printf(" Option: ");
     scanf("%d", &opt);

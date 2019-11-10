@@ -81,6 +81,7 @@ int checkComplete(TNode *node){
     
     //TO BE implemented
     //return node == NULL ? 0 : (checkComplete(node->left) + checkComplete(node->right) + 1);
+    return 0;
 }
 
 int checkBinary(TNode *node) {
@@ -118,6 +119,61 @@ void insertNodeABB(TNode** node, int info){
            insertNodeABB(&(*node)->right, info); 
         }
      }
+}
+
+TNode* maxNodeRight(TNode **node){
+    if((*node)->right != NULL) 
+       return maxNodeRight(&(*node)->right);
+    else{
+       TNode *aux = *node;
+       if((*node)->left != NULL)
+          *node = (*node)->left;
+       else
+          *node = NULL;
+       return aux;
+       }
+}
+
+void removeNodeABB(TNode** node, int info){
+    
+    if(*node == NULL){
+        printf(" Remove ended \n");
+        return;
+    }
+    
+    if((*node)->info > info){
+        removeNodeABB(&(*node)->left, info);
+    } else if ((*node)->info < info){
+        removeNodeABB(&(*node)->right, info);
+    } else{ //found it
+        TNode *pAux = *node;
+        if((*node)->left == NULL && (*node)->right == NULL){
+            free(pAux);
+            *node = NULL;
+        } else{
+            if((*node)->left == NULL){
+                *node = (*node)->right;
+                pAux->right = NULL;
+                free(pAux);
+                pAux = NULL;
+            } else {
+                if((*node)->right == NULL){
+                    *node = (*node)->left;
+                    pAux->left = NULL;
+                    free(pAux);
+                    pAux = NULL;
+                } else{ //has both nodes
+                    pAux = maxNodeRight(&(*node)->left);
+                    pAux->left = (*node)->left;
+                    pAux->right = (*node)->right;
+                    (*node)->left = (*node)->right = NULL;
+                    free(*node);  
+                    *node = pAux;  
+                    pAux = NULL;  
+                }
+            }
+        }
+    }
 }
 
 void printTreePreOrder(TNode *node){  
