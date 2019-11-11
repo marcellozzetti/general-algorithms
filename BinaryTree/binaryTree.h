@@ -112,11 +112,9 @@ void insertNodeABB(TNode** node, int info){
          
      } else {          
         if(info < (*node)->info){
-            printf(" Left node %d \n ", (*node)->info);
             insertNodeABB(&(*node)->left, info);
         } else {
-            printf(" Right node %d \n", (*node)->info);
-           insertNodeABB(&(*node)->right, info); 
+            insertNodeABB(&(*node)->right, info); 
         }
      }
 }
