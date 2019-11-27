@@ -7,92 +7,92 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#include "AVLTree.h"
+#include "BTree.h"
 
-#define MAX_LENGTH 10
+void action(struct btreeNode *tree, int opt) {
 
-void action(TTreeAVL *tree, int opt){
-    
-    int value, valueAux;
-    
-    switch(opt){
+    int value;
+
+    switch (opt) {
         case 1:
-            printf(" Insert a node value: ");
+            printf("Enter your input element:");
             scanf("%d", &value);
-            controlInsertNode(&tree, value);
+            insertBTreeElement(value);
             break;
 
         case 2:
-            printInOrder(tree);
+            printTraversalBTree(tree);
             break;
-        
+
         case 3:
-            printf(" Insert a node value to be find: ");
+            printf("Enter the element to search:");
             scanf("%d", &value);
-            searchNode(tree, value);
+            searchBTreeElement(value, &opt, tree);
             break;
-        
+
         case 4:
-            printf(" Insert a node value to be removed: ");
+            printf("Enter the element to delete:");
             scanf("%d", &value);
-            removeNode(&tree, value);
+            deleteBTreeElement(value, tree);
+
+        case 5:
+            //occupationRate(tree);
             break;
-        
+
         case 10:
             createDefaultTree(tree);
             break;
-            
+
         default:
             printf(" Wrong %d option! \n\n ", opt);
-            break;         
+            break;
     }
 }
 
-int menu(void){
-    
+int menu(void) {
+
     int opt;
-    
-    printf("\n Select an option: \n");
+
+    printf("\n Select an Option: \n");
     printf(" 0. Exit \n");
     printf(" 1. Insert Node \n");
-    printf(" 2. Print Pre-Order \n");
+    printf(" 2. Print Traversal \n");
     printf(" 3. Search \n");
     printf(" 4. Remove \n");
-    printf(" 10. Pre-defined Tree \n");
+    printf(" 5. Occupation Rate \n");
+    printf(" 10. Pre-defined BTree \n");
     printf(" Option: ");
     scanf("%d", &opt);
-    
+
     return opt;
 }
 
-/*
- * 
- */
 int main(int argc, char** argv) {
 
-    //To be chanced in accordance with option included above: TArray, TStack or TQueue
-    TTreeAVL* Item = (TTreeAVL *) malloc(MAX_LENGTH * sizeof(TTreeAVL));
-    
-    init(Item, (rand() % (50 - 1 + 1)));
-    
-    if(!Item){
+    //Starting the Tree-B
+    int firstValue;
+    printf(" Please, insert the first value %d \n", firstValue);
+    insertBTreeElement(firstValue);
+
+    struct btreeNode* Item = returnRoot();
+
+    if (!Item) {
         printf(" Error on creating the stack! \n");
         return (EXIT_FAILURE);
-    } else{
-        
+    
+    } else {
         int opt = menu();
-        
-        while(opt){
-            
-           action(Item, opt);
-           opt = menu();
+        while (opt) {
+            action(Item, opt);
+            opt = menu();
         }
     }
-    
+
     printf(" *** END *** ");
-    
+
     free(Item);
-    
+
     return (EXIT_SUCCESS);
 }

@@ -8,7 +8,7 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
-      <itemPath>BTree.c</itemPath>
+      <itemPath>BTree.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -37,7 +37,7 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="BTree.c" ex="false" tool="0" flavor2="0">
+      <item path="BTree.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -62,7 +62,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="BTree.c" ex="false" tool="0" flavor2="0">
+      <item path="BTree.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
