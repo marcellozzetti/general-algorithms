@@ -8,8 +8,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <sys/time.h> 
 
 #include "BTree.h"
+
+struct timeval start, end;
+
+double diffTime(struct timeval start, struct timeval end){
+    double time_taken; 
+
+    time_taken = (end.tv_sec - start.tv_sec) * 1e6; 
+    time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6; 
+
+    return time_taken;
+} 
 
 void action(struct btreeNode *tree, int opt) {
 
@@ -29,7 +42,17 @@ void action(struct btreeNode *tree, int opt) {
         case 3:
             printf("Enter the element to search:");
             scanf("%d", &value);
+
+            // start timer. 
+            gettimeofday(&start, NULL); 
+            
             searchBTreeElement(value, &opt, tree);
+
+            // stop timer. 
+            gettimeofday(&end, NULL); 
+
+            printf("Time elapsed: %f (s) \n", diffTime(start, end));
+            
             break;
 
         case 4:
@@ -38,7 +61,7 @@ void action(struct btreeNode *tree, int opt) {
             deleteBTreeElement(value, tree);
 
         case 5:
-            //occupationRate(tree);
+            occupationRateBTree(tree);
             break;
 
         case 10:

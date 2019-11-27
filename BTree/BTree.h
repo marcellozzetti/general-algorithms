@@ -15,8 +15,8 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 512
-#define MIN 256
+#define MAX 128
+#define MIN 64
 
     /****** Definitions B-Tree *******/
     
@@ -40,7 +40,7 @@ extern "C" {
     /* 
      * Create new node 
      */
-    struct btreeNode * createNode(int val, struct btreeNode *child) {
+    struct btreeNode* createNode(int val, struct btreeNode *child) {
         struct btreeNode *newNode;
         newNode = (struct btreeNode *) malloc(sizeof (struct btreeNode));
         newNode->val[1] = val;
@@ -235,29 +235,29 @@ extern "C" {
     /* 
      * Adjusts the given node 
      */
-    void adjustNode(struct btreeNode *myNode, int pos) {
+    void adjustNode(struct btreeNode *node, int pos) {
         if (!pos) {
-            if (myNode->link[1]->count > MIN) {
-                doLeftShift(myNode, 1);
+            if (node->link[1]->count > MIN) {
+                doLeftShift(node, 1);
             } else {
-                mergeNodes(myNode, 1);
+                mergeNodes(node, 1);
             }
         } else {
-            if (myNode->count != pos) {
-                if (myNode->link[pos - 1]->count > MIN) {
-                    doRightShift(myNode, pos);
+            if (node->count != pos) {
+                if (node->link[pos - 1]->count > MIN) {
+                    doRightShift(node, pos);
                 } else {
-                    if (myNode->link[pos + 1]->count > MIN) {
-                        doLeftShift(myNode, pos + 1);
+                    if (node->link[pos + 1]->count > MIN) {
+                        doLeftShift(node, pos + 1);
                     } else {
-                        mergeNodes(myNode, pos);
+                        mergeNodes(node, pos);
                     }
                 }
             } else {
-                if (myNode->link[pos - 1]->count > MIN)
-                    doRightShift(myNode, pos);
+                if (node->link[pos - 1]->count > MIN)
+                    doRightShift(node, pos);
                 else
-                    mergeNodes(myNode, pos);
+                    mergeNodes(node, pos);
             }
         }
     }
@@ -265,37 +265,37 @@ extern "C" {
     /* 
      * Delete val from the node 
      */
-    int delValFromNode(int val, struct btreeNode *myNode) {
+    int delValFromNode(int val, struct btreeNode *node) {
         int pos, flag = 0;
-        if (myNode) {
-            if (val < myNode->val[1]) {
+        if (node) {
+            if (val < node->val[1]) {
                 pos = 0;
                 flag = 0;
             } else {
-                for (pos = myNode->count;
-                        (val < myNode->val[pos] && pos > 1); pos--);
-                if (val == myNode->val[pos]) {
+                for (pos = node->count;
+                        (val < node->val[pos] && pos > 1); pos--);
+                if (val == node->val[pos]) {
                     flag = 1;
                 } else {
                     flag = 0;
                 }
             }
             if (flag) {
-                if (myNode->link[pos - 1]) {
-                    copySuccessor(myNode, pos);
-                    flag = delValFromNode(myNode->val[pos], myNode->link[pos]);
+                if (node->link[pos - 1]) {
+                    copySuccessor(node, pos);
+                    flag = delValFromNode(node->val[pos], node->link[pos]);
                     if (flag == 0) {
                         printf("Given data is not present in B-Tree\n");
                     }
                 } else {
-                    removeVal(myNode, pos);
+                    removeVal(node, pos);
                 }
             } else {
-                flag = delValFromNode(val, myNode->link[pos]);
+                flag = delValFromNode(val, node->link[pos]);
             }
-            if (myNode->link[pos]) {
-                if (myNode->link[pos]->count < MIN)
-                    adjustNode(myNode, pos);
+            if (node->link[pos]) {
+                if (node->link[pos]->count < MIN)
+                    adjustNode(node, pos);
             }
         }
         return flag;
@@ -318,57 +318,76 @@ extern "C" {
     /* 
      * Print Traversal B-Tree
      */
-    void printTraversalBTree(struct btreeNode *myNode) {
+    void printTraversalBTree(struct btreeNode *node) {
         int i;
-        if (myNode) {
-            for (i = 0; i < myNode->count; i++) {
-                printTraversalBTree(myNode->link[i]);
-                printf("%d ", myNode->val[i + 1]);
+        if (node) {
+            for (i = 0; i < node->count; i++) {
+                printTraversalBTree(node->link[i]);
+                printf("%d ", node->val[i + 1]);
             }
-            printTraversalBTree(myNode->link[i]);
+            printTraversalBTree(node->link[i]);
         }
     }
     
     /* 
      * Search element in B-Tree 
      */
-    void searchBTreeElement(int val, int *pos, struct btreeNode *myNode) {
-        if (!myNode) {
+    void searchBTreeElement(int val, int *pos, struct btreeNode *node) {
+        if (!node) {
             printf("Given data %d is not present in B-Tree", val);
             return;
         }
 
-        if (val < myNode->val[1]) {
+        if (val < node->val[1]) {
             *pos = 0;
         } else {
-            for (*pos = myNode->count;
-                    (val < myNode->val[*pos] && *pos > 1); (*pos)--);
-            if (val == myNode->val[*pos]) {
+            for (*pos = node->count;
+                    (val < node->val[*pos] && *pos > 1); (*pos)--);
+            if (val == node->val[*pos]) {
                 printf("Given data %d is present in B-Tree", val);
                 return;
             }
         }
-        searchBTreeElement(val, pos, myNode->link[*pos]);
+        searchBTreeElement(val, pos, node->link[*pos]);
         return;
     }
 
     /* 
      * Delete element from B-Tree 
      */
-    void deleteBTreeElement(int val, struct btreeNode *myNode) {
+    void deleteBTreeElement(int val, struct btreeNode *node) {
         struct btreeNode *tmp;
-        if (!delValFromNode(val, myNode)) {
+        if (!delValFromNode(val, node)) {
             printf("Given value is not present in B-Tree\n");
             return;
         } else {
-            if (myNode->count == 0) {
-                tmp = myNode;
-                myNode = myNode->link[0];
+            if (node->count == 0) {
+                tmp = node;
+                node = node->link[0];
                 free(tmp);
             }
         }
-        root = myNode;
+        root = node;
         return;
+    }
+    
+    /*
+     * Calculate Occupation Rate
+     */
+    void occupationRateBTree(struct btreeNode *node){
+        
+        //contar quantas paginas
+        //contar quantos elementos por pagina
+        //e dividir pela entrada
+
+        int i;
+        if (node) {
+            for (i = 0; i < node->count; i++) {
+                occupationRateBTree(node->link[i]);
+                printf("Count node %d: %d ", i, node->count);
+            }
+            occupationRateBTree(node->link[i]);
+        }
     }
     
     /*
@@ -376,7 +395,7 @@ extern "C" {
      */
     void createDefaultTree(struct btreeNode *node) {
 
-        for (int i = 0; i < MAX; i++) {
+        for (int i = 0; i < MAX * 100; i++) {
 
             insertBTreeElement(rand() % (1024 * MAX - 1 + 1));
         }
