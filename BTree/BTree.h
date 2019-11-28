@@ -15,7 +15,7 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 4
+#define MAX 10
 
     /****** Definitions B-Tree *******/
 

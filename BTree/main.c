@@ -15,16 +15,12 @@
 
 #define MIN 2
 
-#define QTDE_ELEMENTS 1000
+#define QTDE_ELEMENTS 50000
+
+int numberOfPages;
+double averageOcupation;
 
 /****** Complementary Methods B-Tree *******/
-
-/*
- * Return the root node from B-Tree generated
- */
-struct btreeNode* returnRoot() {
-    return root;
-}
 
 /* 
  * Create new node 
@@ -290,6 +286,23 @@ int delValFromNode(int val, struct btreeNode *node) {
     return flag;
 }
 
+/*
+ * Count recursive number of pages
+ */
+void averagePerPages(struct btreeNode *node) {
+    int i;
+    if (node) {
+        
+        for (i = 0; i < node->count; i++) {
+            numberOfPages = numberOfPages + 1;
+            averageOcupation = ((averageOcupation + node->count) / numberOfPages);
+            
+            averagePerPages(node->link[i]);
+            printf("Count page;%d ", node->count);
+        }
+    }
+}
+
 /****** Main Methods B-Tree *******/
 
 /* 
@@ -364,20 +377,12 @@ void deleteBTreeElement(int val, struct btreeNode *node) {
  * Calculate Occupation Rate
  */
 void occupationRateBTree(struct btreeNode *node) {
-
-    //contar quantas paginas
-    //contar quantos elementos por pagina
-    //e dividir pela entrada
-
-    int i;
-    if (node) {
-        for (i = 0; i < node->count; i++) {
-
-            occupationRateBTree(node->link[i]);
-            printf("Count node %d: %d ", i, node->count);
-        }
-        occupationRateBTree(node->link[i]);
-    }
+    
+    numberOfPages = 0;
+    
+    averagePerPages(node);
+    
+    printf(" number of pages %d \n", numberOfPages);
 }
 
 /*
